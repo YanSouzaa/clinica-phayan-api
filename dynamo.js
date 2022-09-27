@@ -9,11 +9,13 @@ AWS.config.update({
 })
 
 const dynamoClient = new AWS.DynamoDB.DocumentClient();
-const TABLENAME = 'phayan_schedules'
+const SCHEDULES_TABLE = 'phayan_schedules';
+const DOCTORS_TABLE = "phayan_doctors";
+const PATIENTS_TABLE = "phayan_patients";
 
 const getSchedules = async() => {
     const params = {
-        TableName : TABLENAME
+        TableName : SCHEDULES_TABLE
     }
 
 const characters = await dynamoClient.scan(params).promise();
@@ -23,7 +25,7 @@ return characters
 
 const addSchedule = async(character) => {
     const params = {
-        TableName : TABLENAME,
+        TableName : SCHEDULES_TABLE,
         Item : character
 
     }
@@ -31,7 +33,13 @@ const addSchedule = async(character) => {
 return dynamoClient.put(params).promise();
 
 }
-//addOrUpdateCharacter({'id':'1','nome':'Hermione'})
 
+const getDoctors = async () => {
+    const params = {
+        TableName : DOCTORS_TABLE,
+    }
+    
+    return dynamoClient.scan(params).promise();
+}
 
-export {dynamoClient,getSchedules,addSchedule}
+export {dynamoClient,getSchedules,addSchedule, getDoctors}
