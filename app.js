@@ -1,5 +1,5 @@
 import express from 'express';
-import { addSchedule, getSchedules, getDoctors, getPatients, addPatient } from './dynamo.js';
+import { addSchedule, getSchedules, getDoctors, getPatients, addPatient, addDoctor } from './dynamo.js';
 import cors from 'cors'
 import { v4 } from "uuid";
 
