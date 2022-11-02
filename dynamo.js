@@ -23,15 +23,12 @@ console.log(characters)
 return characters
 }
 
-const addSchedule = async(character) => {
+const addSchedule = async(schedule) => {
     const params = {
         TableName : SCHEDULES_TABLE,
-        Item : character
-
+        Item : schedule,
     }
-
-return dynamoClient.put(params).promise();
-
+return await dynamoClient.put(params).promise();
 }
 
 const getDoctors = async () => {
@@ -42,4 +39,30 @@ const getDoctors = async () => {
     return dynamoClient.scan(params).promise();
 }
 
-export {dynamoClient,getSchedules,addSchedule, getDoctors}
+const addDoctor = async(doctor) => {
+    const params = {
+        TableName : DOCTORS_TABLE,
+        Item : doctor,
+    }
+return await dynamoClient.put(params).promise();
+}
+
+const getPatients = async () => {
+    const params = {
+        TableName : PATIENTS_TABLE,
+    }
+    
+    return dynamoClient.scan(params).promise();
+}
+
+const addPatient = async(patient) => {
+    const params = {
+        TableName : PATIENTS_TABLE,
+        Item : patient,
+    }
+return await dynamoClient.put(params).promise();
+}
+
+
+
+export {dynamoClient,getSchedules,addSchedule, getDoctors, addDoctor, getPatients, addPatient}
